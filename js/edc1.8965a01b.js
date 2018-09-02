@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["edc1"],{edc1:function(e,n,t){"use strict";t.r(n);var c=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("d2-container-frame",{attrs:{src:"http://app.d3collection.cn/d2-admin-doc/lastest/zh/"}})},a=[],l=t("2877"),o={},s=Object(l["a"])(o,c,a,!1,null,null,null);s.options.__file="index.vue";n["default"]=s.exports}}]);
+//# sourceMappingURL=edc1.8965a01b.js.map

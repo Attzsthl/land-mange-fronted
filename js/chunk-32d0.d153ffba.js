@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-32d0"],{1235:function(n,t,e){"use strict";e.r(t);var i=function(){var n=this,t=n.$createElement,i=n._self._c||t;return i("d2-container",[i("d2-page-cover",{attrs:{title:"内置组件","sub-title":"D2Admin 为你提供了一些上手即用的组件"}},[i("img",{attrs:{src:e("93a8")}})])],1)},c=[],a=e("2877"),o={},r=Object(a["a"])(o,i,c,!1,null,null,null);r.options.__file="index.vue";t["default"]=r.exports},"93a8":function(n,t,e){n.exports=e.p+"img/icon.c9418a1b.png"}}]);
+//# sourceMappingURL=chunk-32d0.d153ffba.js.map
