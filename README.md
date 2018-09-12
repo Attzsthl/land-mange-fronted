@@ -2,7 +2,7 @@
 
 <p align="center">
   <a><img src="https://img.shields.io/github/release/d2-projects/d2-admin.svg"/></a>
-  <a><img src="https://badge.fury.io/js/%40d2-admin%2Fice-scaffold.svg"/></a>
+  <a><img src="https://img.shields.io/npm/v/@d2-admin/ice-scaffold.svg"/></a>
   <a href="https://www.travis-ci.org/d2-projects/d2-admin"><img src="https://www.travis-ci.org/d2-projects/d2-admin.svg?branch=master"/></a>
   <a><img src="https://img.shields.io/github/last-commit/d2-projects/d2-admin.svg"/></a>
   <a><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg"/></a>
@@ -97,6 +97,28 @@
 | --- | --- | --- | --- |
 | D2 CRUD | [Github](https://github.com/d2-projects/d2-crud) | [预览](https://d2-projects.github.io/d2-admin/#/demo/d2-crud/index) | 表格常用操作封装 |
 | D2 Ribbons | [Github](https://github.com/d2-projects/d2-ribbons) | [预览](https://github.com/d2-projects/d2-ribbons) | 开源项目徽标库 |
+
+## 后端实现
+
+| 名称 | Github / 主页 | 预览 | 介绍 |
+| --- | --- | --- | --- |
+| ( Spring Cloud ) Taroco | [Github](https://github.com/liuht777/Taroco) | [预览](http://111.231.192.110/) | 整套微服务企业级解决方案 |
+
+## 徽章
+
+如果您的开源项目基于 D2Admin 开发，请在您的 README 添加下面的徽章：
+
+<a href="https://github.com/d2-projects/d2-admin" target="_blank">
+	<img src="https://raw.githubusercontent.com/FairyEver/d2-admin/master/doc/image/d2-admin@2x.png" width="200">
+</a>
+
+复制下面代码加入到 README 中即可：
+
+``` html
+<a href="https://github.com/d2-projects/d2-admin" target="_blank"><img src="https://raw.githubusercontent.com/FairyEver/d2-admin/master/doc/image/d2-admin@2x.png" width="200"></a>
+```
+
+同时您可以将您的项目汇报给我们，优秀项目我们会放置在 D2Admin 相关位置并帮助您宣传。
 
 ## 加入我们
 
