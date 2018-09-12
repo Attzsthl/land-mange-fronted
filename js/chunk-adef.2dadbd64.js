@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-adef"],{"360b":function(n,t,e){"use strict";e.r(t);var i=function(){var n=this,t=n.$createElement,i=n._self._c||t;return i("d2-container",[i("d2-page-cover",{attrs:{title:"试验台","sub-title":"在这里可以测试一些 D2Admin 的系统功能"}},[i("img",{attrs:{src:e("af6d")}})])],1)},a=[],c=e("2877"),o={},r=Object(c["a"])(o,i,a,!1,null,null,null);r.options.__file="index.vue";t["default"]=r.exports},af6d:function(n,t,e){n.exports=e.p+"img/icon.50351bf3.png"}}]);
-//# sourceMappingURL=chunk-adef.2dadbd64.js.map

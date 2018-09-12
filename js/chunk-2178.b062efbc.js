@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2178"],{"60ee":function(e,n,t){"use strict";t.r(n);var i=function(){var e=this,n=e.$createElement,i=e._self._c||n;return i("d2-container",[i("d2-page-cover",{attrs:{title:"插件演示","sub-title":"D2Admin 集成了许多实用插件"}},[i("img",{attrs:{src:t("73d4")}})])],1)},c=[],o=t("2877"),r={},s=Object(o["a"])(r,i,c,!1,null,null,null);s.options.__file="index.vue";n["default"]=s.exports},"73d4":function(e,n,t){e.exports=t.p+"img/icon.fa2de0e0.png"}}]);
+//# sourceMappingURL=chunk-2178.b062efbc.js.map

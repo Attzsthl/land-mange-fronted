@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-b0e0"],{"441e":function(e,t,n){"use strict";n.r(t);var i=function(){var e=this,t=e.$createElement,i=e._self._c||t;return i("d2-container",[i("d2-page-cover",{attrs:{title:"图表","sub-title":"集成图表组件"}},[i("img",{attrs:{src:n("d45b")}})])],1)},c=[],o=n("2877"),r={},s=Object(o["a"])(r,i,c,!1,null,null,null);s.options.__file="index.vue";t["default"]=s.exports},d45b:function(e,t,n){e.exports=n.p+"img/icon.a109e4a4.png"}}]);
-//# sourceMappingURL=chunk-b0e0.8c1447a5.js.map

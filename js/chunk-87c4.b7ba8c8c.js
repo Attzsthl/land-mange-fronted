@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-87c4"],{"0d75":function(t,n,e){"use strict";e.r(n);var c=function(){var t=this,n=t.$createElement,c=t._self._c||n;return c("d2-container",[c("d2-page-cover",{attrs:{title:"示例","sub-title":"供借鉴和参考的页面"}},[c("img",{attrs:{src:e("3bca")}})])],1)},i=[],a=e("2877"),o={},r=Object(a["a"])(o,c,i,!1,null,null,null);r.options.__file="index.vue";n["default"]=r.exports},"3bca":function(t,n,e){t.exports=e.p+"img/icon.31abff12.png"}}]);
-//# sourceMappingURL=chunk-87c4.b7ba8c8c.js.map

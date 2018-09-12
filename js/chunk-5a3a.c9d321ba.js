@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-5a3a"],{"4c4f":function(n,t,e){n.exports=e.p+"img/icon.c64b9f39.png"},"5bd6":function(n,t,e){"use strict";e.r(t);var c=function(){var n=this,t=n.$createElement,c=n._self._c||t;return c("d2-container",[c("d2-page-cover",{attrs:{title:"基础组件库","sub-title":"D2Admin 集成由饿了么出品的 ElementUI"}},[c("img",{attrs:{src:e("4c4f")}})])],1)},i=[],o=e("2877"),r={},s=Object(o["a"])(r,c,i,!1,null,null,null);s.options.__file="index.vue";t["default"]=s.exports}}]);
+//# sourceMappingURL=chunk-5a3a.c9d321ba.js.map
