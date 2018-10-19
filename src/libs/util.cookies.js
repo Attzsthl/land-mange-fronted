@@ -1,7 +1,13 @@
-import Cookies from 'js-cookie'
 import setting from '@/setting.js'
+import Cookies from 'js-cookie'
+import WebStorageCache from 'web-storage-cache'
+
+// wsCache 会在 Electron 环境下代替 Cookies
+var wsCache = new WebStorageCache()
 
 const cookies = {}
+
+const IS_ELECTRON = process.env.VUE_APP_IS_ELECTRON
 
 /**
  * @description 存储 cookie 值
@@ -14,7 +20,13 @@ cookies.set = function (name = 'default', value = '', cookieSetting = {}) {
     expires: 1
   }
   Object.assign(currentCookieSetting, cookieSetting)
-  Cookies.set(`d2admin-${setting.releases.version}-${name}`, value, currentCookieSetting)
+  if (IS_ELECTRON) {
+    wsCache.set(`d2admin-${setting.releases.version}-${name}`, value, {
+      exp: currentCookieSetting.expires * 86400
+    })
+  } else {
+    Cookies.set(`d2admin-${setting.releases.version}-${name}`, value, currentCookieSetting)
+  }
 }
 
 /**
@@ -22,7 +34,8 @@ cookies.set = function (name = 'default', value = '', cookieSetting = {}) {
  * @param {String} name cookie name
  */
 cookies.get = function (name = 'default') {
-  return Cookies.get(`d2admin-${setting.releases.version}-${name}`)
+  const keyName = `d2admin-${setting.releases.version}-${name}`
+  return IS_ELECTRON ? wsCache.get(keyName) : Cookies.get(keyName)
 }
 
 /**
@@ -37,7 +50,8 @@ cookies.getAll = function () {
  * @param {String} name cookie name
  */
 cookies.remove = function (name = 'default') {
-  return Cookies.remove(`d2admin-${setting.releases.version}-${name}`)
+  const keyName = `d2admin-${setting.releases.version}-${name}`
+  return IS_ELECTRON ? wsCache.delete(keyName) : Cookies.remove(keyName)
 }
 
 export default cookies

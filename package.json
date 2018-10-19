@@ -4,12 +4,17 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "start": "vue-cli-service serve --open",
-    "dev": "vue-cli-service serve --open",
+    "start": "npm run serve",
+    "dev": "npm run serve",
+    "serve:e": "vue-cli-service serve:electron",
+    "start:e": "npm run serve:e",
+    "dev:e": "npm run serve:e",
     "build": "vue-cli-service build",
     "build:travis": "vue-cli-service build --mode travis",
+    "build:e": "cross-env VUE_APP_IS_ELECTRON=true vue-cli-service build:electron",
     "lint": "vue-cli-service lint --fix",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "@d2-projects/d2-crud": "^1.2.0",
@@ -60,12 +65,16 @@
     "@vue/test-utils": "^1.0.0-beta.20",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
+    "cross-env": "^5.2.0",
+    "electron": "^2.0.2",
     "lint-staged": "^7.2.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "svg-sprite-loader": "^3.8.0",
     "text-loader": "0.0.1",
-    "vue-template-compiler": "^2.5.17"
+    "vue-cli-plugin-electron-builder": "^1.0.0-rc.3",
+    "vue-template-compiler": "^2.5.17",
+    "web-storage-cache": "^1.0.3"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -79,5 +88,6 @@
       "vue-cli-service lint",
       "git add"
     ]
-  }
+  },
+  "main": "dist_electron/bundled/background.js"
 }

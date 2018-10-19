@@ -63,5 +63,13 @@ module.exports = {
     entry
       .add('babel-polyfill')
       .end()
+  },
+  pluginOptions: {
+    electronBuilder: {
+      // https://nklayman.github.io/vue-cli-plugin-electron-builder/
+      builderOptions: {
+        // electron-builder 选项 https://www.electron.build/
+      }
+    }
   }
 }
