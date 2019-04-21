@@ -1,9 +1,8 @@
 import request from '@/plugin/axios'
-
-export function AccountLogin (data) {
+export function getLandApprovePage (params) {
   return request({
-    url: '/ajaxLogin',
+    url: '/mangeApprove',
     method: 'post',
-    data
+    params
   })
 }

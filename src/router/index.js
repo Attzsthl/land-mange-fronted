@@ -24,6 +24,7 @@ const router = new VueRouter({
  * 权限验证
  */
 router.beforeEach((to, from, next) => {
+  console.log('hello')
   // 进度条
   NProgress.start()
   // 关闭搜索面板
@@ -33,6 +34,7 @@ router.beforeEach((to, from, next) => {
     // 这里暂时将cookie里是否存有token作为验证是否登录的条件
     // 请根据自身业务需要修改
     const token = util.cookies.get('token')
+    console.log(token)
     if (token && token !== 'undefined') {
       next()
     } else {

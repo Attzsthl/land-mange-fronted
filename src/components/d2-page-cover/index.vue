@@ -3,16 +3,9 @@
     <div class="d2-page-cover__logo">
       <slot/>
     </div>
-    <p class="d2-page-cover__title">D2 Admin {{$version}}</p>
-    <p class="d2-page-cover__sub-title">优雅的中后台集成方案</p>
+    <p class="d2-page-cover__title">GraduationDesign {{$version}}</p>
+    <p class="d2-page-cover__sub-title">苏州市土地经营管理系统</p>
     <p class="d2-page-cover__build-time">FINAL BUILD TIME {{$buildTime}}</p>
-    <slot name="footer"/>
-    <a target="blank" href="https://github.com/d2-projects/d2-admin">
-      <img
-        style="position: absolute; top: 0; right: 0; border: 0; width: 150px;"
-        src="./image/darkblue@2x.png"
-        alt="Fork me on GitHub">
-    </a>
   </div>
 </template>
 

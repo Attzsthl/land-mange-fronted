@@ -33,6 +33,7 @@ import d2VueFiltersDayjs from '@d2-admin/filters-dayjs'
 import router from './router'
 import { menuHeader, menuAside } from '@/menu'
 import { frameInRoutes } from '@/router/routes'
+import axios from 'axios'
 
 // 核心插件
 Vue.use(d2Admin)
@@ -49,6 +50,8 @@ Vue.component('d2-grid-layout', GridLayout)
 Vue.component('d2-grid-item', GridItem)
 Vue.component('SplitPane', SplitPane)
 Vue.component('VueUeditorWrap', VueUeditorWrap)
+axios.default.baseURL = 'https://localhost:8888'
+Vue.prototype.$axios = axios
 
 new Vue({
   router,

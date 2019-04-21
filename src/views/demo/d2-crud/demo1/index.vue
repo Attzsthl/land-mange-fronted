@@ -18,9 +18,9 @@
 </template>
 
 <script>
+// key要与data中对象的key严格对应
 import doc from './doc.md'
 import code from './code.js'
-
 export default {
   data () {
     return {

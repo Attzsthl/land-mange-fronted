@@ -88,7 +88,7 @@ export default {
     },
     {
       path: `${pre}log`,
-      title: '日志',
+      title: '日志hhh',
       icon: 'bullseye',
       children: [
         { path: `${pre}log/log`, title: '日志记录', icon: 'dot-circle-o' },

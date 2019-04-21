@@ -1,9 +1,9 @@
 <template>
   <div class="page-login">
     <div class="page-login--layer page-login--layer-area">
-      <ul class="circles">
+      <!-- <ul class="circles">
         <li v-for="n in 10" :key="n"></li>
-      </ul>
+      </ul> -->
     </div>
     <div
       class="page-login--layer page-login--layer-time"
@@ -16,7 +16,7 @@
         flex="dir:top main:justify cross:center box:justify">
         <div class="page-login--content-header">
           <p class="page-login--content-header-motto">
-            时间是一切财富中最宝贵的财富。 <span>—— 德奥弗拉斯多</span>
+            <!-- 时间是一切财富中最宝贵的财富。 <span>—— 德奥弗拉斯多</span> -->
           </p>
         </div>
         <div
@@ -160,6 +160,37 @@ export default {
       this.formLogin.password = user.password
       this.submit()
     },
+    submitForm () {
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          this.$axios
+            .post('/api/ajaxLogin', {
+              username: this.formLogin.username,
+              password: this.formLogin.password
+            })
+            .then(successResponse => {
+              this.responseResult = JSON.stringify(successResponse.data)
+              if (successResponse.data.code === 200) {
+                console.log('登陆信息' + successResponse.data.loginInfo.roleList)
+                localStorage.setItem('ms_username', this.formLogin.username)
+                localStorage.setItem('roles', successResponse.data.loginInfo.roleList)
+                localStorage.setItem('permissions', successResponse.data.loginInfo.permissionList)
+                this.$router.replace(this.$route.query.redirect || '/')
+              }
+              if (successResponse.data.code === 400) {
+                let warnMessage = successResponse.data.message
+                this.$message({
+                  message: warnMessage,
+                  type: 'warning'
+                })
+              }
+            })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
     /**
      * @description 提交表单
      */
@@ -190,12 +221,17 @@ export default {
 
 <style lang="scss">
 .page-login {
-  @extend %unable-select;
-  $backgroundColor: #F0F2F5;
-  // ---
-  background-color: $backgroundColor;
-  height: 100%;
+  // @extend %unable-select;
+  // $backgroundColor: #F0F2F5;
+  // // ---
+  // background-color: $backgroundColor;
+  // height: 100%;
+  // position: relative;
   position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url(./image/back.jpg);
+  background-size: 100%;
   // 层
   .page-login--layer {
     @extend %full;
@@ -319,101 +355,100 @@ export default {
       }
     }
   }
-  // 背景
-  .circles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    li {
-      position: absolute;
-      display: block;
-      list-style: none;
-      width: 20px;
-      height: 20px;
-      background: #FFF;
-      animation: animate 25s linear infinite;
-      bottom: -200px;
-      @keyframes animate {
-        0%{
-          transform: translateY(0) rotate(0deg);
-          opacity: 1;
-          border-radius: 0;
-        }
-        100%{
-          transform: translateY(-1000px) rotate(720deg);
-          opacity: 0;
-          border-radius: 50%;
-        }
-      }
-      &:nth-child(1) {
-        left: 15%;
-        width: 80px;
-        height: 80px;
-        animation-delay: 0s;
-      }
-      &:nth-child(2) {
-        left: 5%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 2s;
-        animation-duration: 12s;
-      }
-      &:nth-child(3) {
-        left: 70%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 4s;
-      }
-      &:nth-child(4) {
-        left: 40%;
-        width: 60px;
-        height: 60px;
-        animation-delay: 0s;
-        animation-duration: 18s;
-      }
-      &:nth-child(5) {
-        left: 65%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 0s;
-      }
-      &:nth-child(6) {
-        left: 75%;
-        width: 150px;
-        height: 150px;
-        animation-delay: 3s;
-      }
-      &:nth-child(7) {
-        left: 35%;
-        width: 200px;
-        height: 200px;
-        animation-delay: 7s;
-      }
-      &:nth-child(8) {
-        left: 50%;
-        width: 25px;
-        height: 25px;
-        animation-delay: 15s;
-        animation-duration: 45s;
-      }
-      &:nth-child(9) {
-        left: 20%;
-        width: 15px;
-        height: 15px;
-        animation-delay: 2s;
-        animation-duration: 35s;
-      }
-      &:nth-child(10) {
-        left: 85%;
-        width: 150px;
-        height: 150px;
-        animation-delay: 0s;
-        animation-duration: 11s;
-      }
-    }
-  }
+  // 背景 --动画效果
+  // .circles {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   overflow: hidden;
+  //   li {
+  //     position: absolute;
+  //     display: block;
+  //     list-style: none;
+  //     width: 20px;
+  //     height: 20px;
+  //     background: #FFF;
+  //     animation: animate 25s linear infinite;
+  //     bottom: -200px;
+  //     @keyframes animate {
+  //       0%{
+  //         transform: translateY(0) rotate(0deg);
+  //         opacity: 1;
+  //         border-radius: 0;
+  //       }
+  //       100%{
+  //         transform: translateY(-1000px) rotate(720deg);
+  //         opacity: 0;
+  //         border-radius: 50%;
+  //       }
+  //     }
+  //     &:nth-child(1) {
+  //       left: 15%;
+  //       width: 80px;
+  //       height: 80px;
+  //       animation-delay: 0s;
+  //     }
+  //     &:nth-child(2) {
+  //       left: 5%;
+  //       width: 20px;
+  //       height: 20px;
+  //       animation-delay: 2s;
+  //       animation-duration: 12s;
+  //     }
+  //     &:nth-child(3) {
+  //       left: 70%;
+  //       width: 20px;
+  //       height: 20px;
+  //       animation-delay: 4s;
+  //     }
+  //     &:nth-child(4) {
+  //       left: 40%;
+  //       width: 60px;
+  //       height: 60px;
+  //       animation-delay: 0s;
+  //       animation-duration: 18s;
+  //     }
+  //     &:nth-child(5) {
+  //       left: 65%;
+  //       width: 20px;
+  //       height: 20px;
+  //       animation-delay: 0s;
+  //     }
+  //     &:nth-child(6) {
+  //       left: 75%;
+  //       width: 150px;
+  //       height: 150px;
+  //       animation-delay: 3s;
+  //     }
+  //     &:nth-child(7) {
+  //       left: 35%;
+  //       width: 200px;
+  //       height: 200px;
+  //       animation-delay: 7s;
+  //     }
+  //     &:nth-child(8) {
+  //       left: 50%;
+  //       width: 25px;
+  //       height: 25px;
+  //       animation-delay: 15s;
+  //       animation-duration: 45s;
+  //     }
+  //     &:nth-child(9) {
+  //       left: 20%;
+  //       width: 15px;
+  //       height: 15px;
+  //       animation-delay: 2s;
+  //       animation-duration: 35s;
+  //     }
+  //     &:nth-child(10) {
+  //       left: 85%;
+  //       width: 150px;
+  //       height: 150px;
+  //       animation-delay: 0s;
+  //       animation-duration: 11s;
+  //     }
+  //   }
 }
 </style>

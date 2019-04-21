@@ -22,7 +22,8 @@
 <script>
 import doc from './doc.md'
 import code from './code.js'
-import { BusinessTable1List } from '@api/demo.business.table.1'
+// import { BusinessTable1List } from '@api/demo.business.table.1'
+import { getLandApprovePage } from '@api/common.js'
 
 export default {
   data () {
@@ -33,25 +34,26 @@ export default {
       columns: [
         {
           title: '卡密',
-          key: 'key',
+          key: 'id',
           width: 320
         },
         {
           title: '面值',
-          key: 'value'
+          key: 'proCode'
         },
         {
           title: '管理员',
-          key: 'admin'
+          key: 'proName'
         },
         {
           title: '创建时间',
-          key: 'dateTimeCreat'
-        },
-        {
-          title: '使用时间',
-          key: 'dateTimeUse'
+          key: 'applyDate'
         }
+        // ,
+        // {
+        //   title: '使用时间',
+        //   key: 'dateTimeUse'
+        // }
       ],
       data: [],
       loading: false,
@@ -72,16 +74,24 @@ export default {
     },
     fetchData () {
       this.loading = true
-      BusinessTable1List({
-        ...this.pagination
-      }).then(res => {
-        this.data = res.list
+      getLandApprovePage(this.pagination).then(res => {
+        this.data = res.content
         this.pagination.total = res.page.total
         this.loading = false
       }).catch(err => {
         console.log('err', err)
         this.loading = false
       })
+      // BusinessTable1List({
+      //   ...this.pagination // 取出所有可遍历属性,copy到当前对想法中
+      // }).then(res => {
+      //   this.data = res.list
+      //   this.pagination.total = res.page.total
+      //   this.loading = false
+      // }).catch(err => {
+      //   console.log('err', err)
+      //   this.loading = false
+      // })
     }
   }
 }

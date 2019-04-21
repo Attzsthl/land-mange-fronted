@@ -10,6 +10,7 @@ export default [
     method: 'post',
     handle ({ body }) {
       const user = userDB.find(e => e.username === body.username && e.password === body.password)
+      console.log('hello body' + body)
       if (user) {
         return {
           code: 0,
