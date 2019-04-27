@@ -55,9 +55,25 @@ service.interceptors.request.use(
   }
 )
 
+const downloadUrl = url => {
+  let iframe = document.createElement('iframe')
+  iframe.style.display = 'none'
+  iframe.src = url
+  iframe.onload = function () {
+    document.body.removeChild(iframe)
+  }
+  document.body.appendChild(iframe)
+}
+
 // 响应拦截器
 service.interceptors.response.use(
   response => {
+    console.log('contetnypt:' + response.headers['content-type'])
+    if (response.headers && (response.headers['content-type'] === 'application/x-msdownload' || response.headers['content-type'] === 'application/vnd.ms-excel;charset=utf-8')) {
+      console.log('hello download')
+      downloadUrl(response.request.responseURL)
+      return { data: { rCode: 'success' } }
+    }
     // dataAxios 是 axios 返回数据中的 data
     const dataAxios = response.data
     // 这个状态码是和后端约定的

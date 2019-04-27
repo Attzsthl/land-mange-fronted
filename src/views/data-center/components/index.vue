@@ -5,7 +5,6 @@
       :columns="columns"
       :data="data"
       :loading="loading"
-      :rowHandle="rowHandle"
       :pagination="pagination"
       @pagination-current-change="paginationCurrentChange"/>
     <el-card shadow="never" class="d2-mb">
@@ -21,8 +20,6 @@
 </template>
 
 <script>
-import doc from './doc.md'
-import code from './code.js'
 // import { BusinessTable1List } from '@api/demo.business.table.1'
 import { getLandApprovePage } from '@api/common.js'
 
@@ -30,8 +27,6 @@ export default {
   data () {
     return {
       filename: __filename,
-      doc,
-      code,
       columns: [
         {
           title: '卡密',
@@ -62,16 +57,6 @@ export default {
         currentPage: 1,
         pageSize: 5,
         total: 0
-      },
-      rowHandle: {
-        custom: [
-          {
-            text: '自定义按钮',
-            type: 'warning',
-            size: 'small',
-            emit: 'custom-emit-1'
-          }
-        ]
       }
     }
   },

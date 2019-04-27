@@ -5,7 +5,7 @@ export default {
   children: (pre => [
     { path: `${pre}index`, title: '模板管理', icon: 'arrows' },
     {
-      title: '上报数据', icon: 'arrow-up'
+      path: `${pre}data-import`, title: '上报数据', icon: 'arrow-up'
     }
   ])('/data/module/')
 }

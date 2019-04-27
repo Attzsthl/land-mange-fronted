@@ -6,3 +6,14 @@ export function getLandApprovePage (params) {
     params
   })
 }
+
+export function getExcel () {
+  return request({
+    url: '/getExcel',
+    method: 'GET',
+    params: {
+
+    },
+    responseType: 'blob'
+  })
+}
