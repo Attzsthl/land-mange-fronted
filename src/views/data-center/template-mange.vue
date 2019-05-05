@@ -126,14 +126,13 @@ export default {
       return row.tag === value
     },
     handleEdit (index, row) {
-      // this.idx = index
-      // const item = this.tableData[index]
-      // this.form = {
-      //   name: item.name,
-      //   date: item.date,
-      //   address: item.address
-      // }
-      // this.editVisible = true
+      console.log('row.id' + row.id)
+      this.$router.push({
+        name: 'data-module-template-edit',
+        query: {
+          tableName: row.tableName
+        }
+      })
     },
     handleDelete (index, row) {
       this.idx = index
