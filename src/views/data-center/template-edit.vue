@@ -66,6 +66,7 @@ export default {
         templates: this.form
       }
       editTemplateSubmit(query)
+      this.loadData()
     }
   }
 }

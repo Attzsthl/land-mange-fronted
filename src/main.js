@@ -34,7 +34,8 @@ import router from './router'
 import { menuHeader, menuAside } from '@/menu'
 import { frameInRoutes } from '@/router/routes'
 import axios from 'axios'
-
+import './common/directives'
+import util from '@/libs/util.js'
 // 核心插件
 Vue.use(d2Admin)
 
@@ -52,6 +53,28 @@ Vue.component('SplitPane', SplitPane)
 Vue.component('VueUeditorWrap', VueUeditorWrap)
 axios.default.baseURL = 'https://localhost:8888'
 Vue.prototype.$axios = axios
+
+// router.beforeEach((to, from, next) => {
+//   const roles = localStorage.getItem('roles')
+//   console.log(roles)
+//   // 这边可以用match()来判断所有需要权限的路径，to.matched.some(item => return item.meta.loginRequire)
+//   // console.log(roles)
+//   // if (!roles && to.path !== '/login') {
+//   //   next('/login')
+//   // } else if (to.meta.permission) {
+//   //   // 如果是管理员权限则可进入
+//   //   roles.indexOf('admin') > -1 ? next() : next('/403');
+//   // } else {
+//   //   // 简单的判断IE10及以下不进入富文本编辑器，该组件不兼容
+//   //   if (navigator.userAgent.indexOf('MSIE') > -1 && to.path === '/editor') {
+//   //     Vue.prototype.$alert('vue-quill-editor组件不兼容IE10及以下浏览器，请使用更高版本的浏览器查看', '浏览器不兼容通知', {
+//   //       confirmButtonText: '确定'
+//   //     })
+//   //   } else {
+//   //     next()
+//   //   }
+//   // }
+// })
 
 new Vue({
   router,
@@ -80,12 +103,53 @@ new Vue({
     // 检测路由变化切换侧边栏内容
     '$route.matched': {
       handler (matched) {
+        console.log('matched[0].path')
+        console.log(matched[0].path)
         if (matched.length > 0) {
           const _side = menuAside.filter(menu => menu.path === matched[0].path)
-          this.$store.commit('d2admin/menu/asideSet', _side.length > 0 ? _side[0].children : [])
+          const roles = util.cookies.get('roles')
+          console.log(roles)
+          const asideMenu = []
+          _side[0].children.forEach(aside => {
+            if (aside.meta && aside.meta.auth) {
+              roles.indexOf('admin') > -1 ? asideMenu.push(aside) : asideMenu.push()
+            } else {
+              asideMenu.push(aside)
+            }
+          })
+          console.log(asideMenu)
+          this.$store.commit('d2admin/menu/asideSet', _side.length > 0 ? asideMenu : [])
         }
       },
       immediate: true
     }
   }
 }).$mount('#app')
+
+function formatDate (date, fmt) {
+  date = new Date(date)
+  if (typeof (fmt) === 'undefined') {
+    fmt = 'yyyy-MM-dd HH:mm:ss'
+  }
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+  }
+  let o = {
+    'M+': date.getMonth() + 1,
+    'd+': date.getDate(),
+    'H+': date.getHours(),
+    'm+': date.getMinutes(),
+    's+': date.getSeconds()
+  }
+  for (let k in o) {
+    if (new RegExp(`(${k})`).test(fmt)) {
+      let str = o[k] + ''
+      fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length))
+    }
+  }
+  return fmt
+};
+
+Vue.filter('FormatDate', function (date, fmt) {
+  return formatDate(date, fmt)
+})

@@ -5,21 +5,27 @@
             :model="form"
             ref="form"
             style="margin-bottom: -18px">
-            <el-form-item label="状态" prop="type">
+            <el-form-item label="状态">
                 <el-select
-                    v-model="form.type"
+                    v-model="form.year"
                     placeholder="年份选择"
                     style="width: 100px;">
-                    <el-option label="2019" value="1"/>
-                    <el-option label="2017" value="2"/>
-                    <el-option label="2016" value="3"/>
-                    <el-option label="2015" value="4"/>
-                    <el-option label="2014" value="5"/>
+                    <el-option label="2019" value="2019"/>
+                    <el-option label="2018" value="2018"/>
+                    <el-option label="2017" value="2017"/>
+                    <el-option label="2016" value="2016"/>
+                    <el-option label="2015" value="2015"/>
                 </el-select>
             </el-form-item>
+            <el-button
+                  type="primary"
+                  style="float:right"
+                  @click="search">
+                  查询
+                </el-button>
         </el-form>
 
-        <el-table :data="templateData" v-loading="loading" class="table" ref="templateTable" @selection-change="handleSelectionChange">
+        <el-table :data="templateData" v-loading="loading" class="table" ref="templateTable">
                 <el-table-column type="index" label="序号" width="150">
                 </el-table-column>
                 <el-table-column prop="templateName" label="表名" min-width="200">
@@ -28,14 +34,20 @@
                 </el-table-column>
                 <el-table-column prop="reportingPeriod" label="上报期" width="200">
                 </el-table-column>
-                <el-table-column prop="uploadStatus" label="状态" width="100">
+                <el-table-column label="状态" width="100">
+                   <template slot-scope="scope">
+                    <el-tag :type="getTagType(scope.row.status)">
+                      {{ getStatus(scope.row.status) }}
+                    </el-tag>
+                  </template>
                 </el-table-column>
                 <el-table-column label="操作" min-width="200" align="center">
                     <template slot-scope="scope">
-                        <!-- <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">修改</el-button> -->
-                        <!-- <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">查看</el-button> -->
+                        <el-button v-if="scope.row.status == 1 || scope.row.status == 3"  type="primary" icon="el-icon-edit" circle @click="handleEdit(scope.row.templateId, scope.row.year,1)">修改</el-button>
+                        <el-button v-if="scope.row.status == 3"  type="primary" icon="el-icon-info" circle @click="sendConfirm(scope.row)">重新申报</el-button>
+                        <el-button v-if="scope.row.status == 4"  type="primary" icon="el-icon-info" circle @click="handleEdit(scope.row.templateId, scope.row.year,4)">查看</el-button>
                         <el-upload
-                            v-if="scope.row.status == 0"
+                            v-if="scope.row.status == 0 || scope.row.status == 2"
                             class="upload-demo"
                             :multiple='false'
                             :auto-upload='true'
@@ -43,6 +55,7 @@
                             :show-file-list='true'
                             :before-upload="beforeUpload"
                             action=''
+                            :data="scope.row"
                             :limit="1"
                             :on-exceed="handleExceed"
                             :http-request="uploadFile" >
@@ -59,15 +72,18 @@
 </template>
 
 <script>
-import { getTemplateImportPage, uploadExcel } from '@api/data.template.js'
+import { getTemplateImportPage, auditTemplate } from '@api/data.template.js'
+import { getStatus, getTagType, getTownId } from '@api/enum.js'
 
 export default {
   data () {
     return {
-      templateId: '1',
+      templateId: '',
+      year: '',
       templateData: [],
       form: {
-        townId: '1'
+        townId: '',
+        year: ''
       },
       loading: true,
       pagination: {
@@ -78,12 +94,18 @@ export default {
     }
   },
   mounted () {
+    this.form.townId = this.getCurTownId()
     this.fetchData()
+  },
+  computed: {
+    getTagType () {
+      return function (val) {
+        return getTagType(val)
+      }
+    }
   },
   methods: {
     beforeUpload (file) {
-      console.log('beforeUpload')
-      console.log(file.type)
       const isText = file.type === 'application/vnd.ms-excel'
       const isTextComputer = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       return (isText | isTextComputer)
@@ -94,20 +116,16 @@ export default {
     },
     // 上传文件
     uploadFile (item) {
-      console.log(item)
       const fileObj = item.file
       // FormData 对象
       const form = new FormData()
       // 文件对象
+      console.log(item)
       form.append('excel', fileObj)
-      form.append('templateId', this.templateId)
+      form.append('templateId', item.data.templateId)
+      form.append('year', item.data.year)
+      form.append('townId', this.form.townId)
       console.log(JSON.stringify(form))
-      // let formTwo = JSON.stringify(form)
-      // uploadExcel(form).then(response => {
-      //   console.log('MediaAPI.upload')
-      //   console.log(response)
-      //   this.$message.info('文件：' + fileObj.name + '上传成功')
-      // })
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -115,16 +133,18 @@ export default {
       }
 
       this.$axios.post('/api/readExcel', form, config).then((res) => {
-        alert(res)
-        this.passData('hello')
+        this.fetchData()
+        this.$message({
+          type: 'success',
+          message: '上传成功'
+        })
+      // eslint-disable-next-line handle-callback-err
+      }).catch(err => {
+        this.$message({
+          type: 'warning',
+          message: '上传失败'
+        })
       })
-
-    },
-    clear () {
-
-    },
-    addTemplate () {
-
     },
     // 分页导航
     paginationCurrentChange (currentPage) {
@@ -150,61 +170,47 @@ export default {
       this.is_search = true
       this.fetchData()
     },
-    dateFormat (row, column, cellValue) {
-      var date = new Date(row.applyDate)// long转换成date
-      var year = date.getFullYear().toString()
-      var month = (date.getMonth() + 1)
-      var day = date.getDate().toString()
-      if (month < 10) {
-        month = '0' + month
-      }
-      if (day < 10) {
-        day = '0' + day
-      }
-      // var hours = date.getHours()
-      // var minutes = date.getMinutes()
-      return year + '-' + month + '-' + day
-    },
     filterTag (value, row) {
       return row.tag === value
     },
-    handleEdit (index, row) {
-      console.log('row.id' + row.id)
-      this.$router.push({
-        name: 'data-module-template-edit',
-        query: {
-          tableName: row.tableName
-        }
-      })
+    getStatus (val) {
+      return getStatus(val)
     },
-    handleDelete (index, row) {
-      this.idx = index
-      this.delVisible = true
-    },
-    delAll () {
-      const length = this.multipleSelection.length
-      let str = ''
-      this.del_list = this.del_list.concat(this.multipleSelection)
-      for (let i = 0; i < length; i++) {
-        str += this.multipleSelection[i].name + ' '
+    handleEdit (templateId, year, status) {
+      // 不同的模板跳转的页面不同
+      if (templateId === '1') {
+        this.$router.push({
+          name: 'data-module-template-reg-population',
+          query: {
+            templateId: templateId,
+            townId: this.form.townId,
+            year: year,
+            isAudit: false,
+            status: status
+          }
+        })
       }
-      this.$message.error('删除了' + str)
-      this.multipleSelection = []
     },
-    handleSelectionChange (val) {
-      this.multipleSelection = val
+    getCurTownId () {
+      let id = getTownId()
+      return id
     },
-    // 保存编辑
-    saveEdit () {
-      this.$set(this.tableData, this.idx, this.form)
-      this.editVisible = false
-      this.$message.success(`修改第 ${this.idx + 1} 行成功`)
-    },
-    // 确定删除
-    deleteRow () {
-      this.tableData.splice(this.idx, 1)
-      this.$message.success('删除成功')
-      this.delVisible = false
+    sendConfirm (row) {
+      let params = {
+        templateId: row.templateId,
+        year: row.year,
+        townId: this.form.townId,
+        status: 1
+      }
+      this.loading = true
+      auditTemplate(params).then(res => {
+        this.fetchData()
+        this.$message.success('重新申报成功')
+        this.loading = false
+      }).catch(err => {
+        console.log('err', err)
+        this.loading = false
+      })
     }
   }
 }

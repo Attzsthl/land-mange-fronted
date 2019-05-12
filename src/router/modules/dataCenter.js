@@ -14,6 +14,8 @@ export default {
   children: (pre => [
     { path: 'index', name: `${pre}index`, component: _import('data-center/template-mange'), meta: { ...meta, title: '模板管理' } },
     { path: 'data-import', name: `${pre}data-import`, component: _import('data-center/template-upload'), meta: { ...meta, title: '数据导入' } },
-    { path: 'template-edit', name: `${pre}template-edit`, component: _import('data-center/template-edit'), meta: { ...meta, title: '模板编辑' } }
+    { path: 'template-edit', name: `${pre}template-edit`, component: _import('data-center/template-edit'), meta: { ...meta, title: '模板编辑' } },
+    { path: 'template-reg-population', name: `${pre}template-reg-population`, component: _import('data-center/template/template-reg-population'), meta: { ...meta, title: '户籍信息' } },
+    { path: 'template-audit', name: `${pre}template-audit`, component: _import('data-center/template-audit'), meta: { ...meta, title: '上报审核' } }
   ])('data-module-')
 }
