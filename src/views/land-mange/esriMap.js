@@ -1,11 +1,23 @@
+function showFeatureLayer (villageLayer, mapview) {
+  mapview.whenLayerView(villageLayer)
+    .then(function (layerView) {
+      villageLayer.visible = true
+    })
+    .otherwise(function (error) {
+      // An error occurred during the layerview creation
+      console.log(error)
+    })
+}
+
+let layer = Object
+let villageLayer = Object
+
 export const createMap = function (esriLoader, popupTemplate) {
   const options = {
     // 可以使用自定义资源加载,arcgis 官网加载太慢了,经常加载失败.后面会讲到自己本地如何配置资源
     url: 'https://js.arcgis.com/4.7/init.js'
   }
-
   // const options = { version: '3.28' }
-
   esriLoader.loadModules([
     'esri/Map',
     'esri/config',
@@ -32,13 +44,26 @@ export const createMap = function (esriLoader, popupTemplate) {
       const map = new Map({
         // basemap: 'topo'
       })
-      const layer = new FeatureLayer({
+      // eslint-disable-next-line no-unused-vars
+      layer = new FeatureLayer({
         url: 'http://47.100.207.237:6080/arcgis/rest/services/mine/szland/MapServer/1',
         id: 'initlayer',
         outFields: ['*'],
         popupTemplate: popupTemplate
       })
 
+      villageLayer = new FeatureLayer({
+        url: 'http://47.100.207.237:6080/arcgis/rest/services/mine/szland/MapServer/4',
+        id: 'initlayer',
+        visible: false,
+        outFields: ['*'],
+        popupTemplate: popupTemplate
+      })
+
+      // eslint-disable-next-line no-unused-vars
+      const mapImageLayer = new MapImageLayer({
+        url: 'http://47.100.207.237:6080/arcgis/rest/services/mine/szland/MapServer'
+      })
       // eslint-disable-next-line no-unused-vars
       const mapview = new MapView({
         container: 'viewDiv',
@@ -56,6 +81,9 @@ export const createMap = function (esriLoader, popupTemplate) {
         }
       })
       map.add(layer)
+      // map.add(mapImageLayer)
+      map.add(villageLayer)
+      showFeatureLayer(villageLayer, mapview)
       mapview.on('click', function (evt) {
         console.log(evt)
         mapview.hitTest(evt).then(function (res) {
