@@ -87,8 +87,8 @@ export default {
       },
       loading: true,
       pagination: {
-        currentPage: 1,
-        pageSize: 5,
+        page: 0,
+        size: 11,
         total: 0
       }
     }
@@ -125,7 +125,6 @@ export default {
       form.append('templateId', item.data.templateId)
       form.append('year', item.data.year)
       form.append('townId', this.form.townId)
-      console.log(JSON.stringify(form))
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -133,6 +132,7 @@ export default {
       }
 
       this.$axios.post('/api/readExcel', form, config).then((res) => {
+        debugger
         this.fetchData()
         this.$message({
           type: 'success',
@@ -148,7 +148,7 @@ export default {
     },
     // 分页导航
     paginationCurrentChange (currentPage) {
-      this.pagination.currentPage = currentPage
+      this.pagination.currentPage = currentPage - 1
       this.fetchData()
     },
     // 获取 easy-mock 的模拟数据

@@ -20,6 +20,10 @@ import dataModule from './modules/data-module'
 import dataAside from './modules/data-aside'
 import landMangeAside from './modules/land-mange-aside'
 import landMange from './modules/land-mange'
+import exitMange from './modules/exit-mange'
+import exitMangeAside from './modules/exit-mange-aside'
+import businessMange from './modules/business-mange'
+import businessMangeAside from './modules/business-mange-aside'
 // 菜单 侧边栏
 export const menuAside = [
   demoComponents,
@@ -32,7 +36,9 @@ export const menuAside = [
   demoD2Crud,
   dataAside,
   demoFrame,
-  landMangeAside
+  landMangeAside,
+  exitMangeAside,
+  businessMangeAside
 ]
 
 // 菜单 顶栏
@@ -70,5 +76,7 @@ export const menuHeader = [
   demoPlayground,
   demoBusiness,
   dataModule,
-  landMange
+  landMange,
+  exitMange,
+  businessMange
 ]

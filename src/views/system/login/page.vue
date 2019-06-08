@@ -23,7 +23,9 @@
           class="page-login--content-main"
           flex="dir:top main:center cross:center">
           <!-- logo -->
-          <img class="page-login--logo" src="./image/logo@2x.png">
+          <h1 class="head">
+            虎丘区土地经营管理系统
+          </h1>
           <!-- 表单 -->
           <div class="page-login--form">
             <el-card shadow="never">
@@ -220,6 +222,9 @@ export default {
 </script>
 
 <style lang="scss">
+.head {
+  color: #ffffff
+}
 .page-login {
   // @extend %unable-select;
   // $backgroundColor: #F0F2F5;

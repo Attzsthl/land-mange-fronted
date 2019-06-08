@@ -165,8 +165,8 @@ export default {
       },
       loading: true,
       pagination: {
-        currentPage: 1,
-        pageSize: 5,
+        page: 0,
+        size: 10,
         total: 0
       },
       editVisible: false,

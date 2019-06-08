@@ -5,13 +5,13 @@
             :model="form"
             ref="form"
             style="margin-bottom: -18px">
-            <el-form-item label="模板名称">
+            <!-- <el-form-item label="模板名称">
                 <el-input
                     v-model="templateName"
                     style="width: 200px;"/>
-            </el-form-item>
+            </el-form-item> -->
 
-            <el-form-item>
+            <!-- <el-form-item>
                 <el-button
                     type="primary"
                     @click="search">
@@ -23,16 +23,7 @@
                     @click="clear">
                     清空
                 </el-button>
-            </el-form-item>
-
-            <el-form-item
-                style="float:right">
-                <el-button
-                    type="primary"
-                    @click="addTemplate">
-                    新增
-                </el-button>
-            </el-form-item>
+            </el-form-item> -->
         </el-form>
 
         <el-table :data="templateData" v-loading="loading" class="table" ref="templateTable" @selection-change="handleSelectionChange">
@@ -40,10 +31,12 @@
                 </el-table-column>
                 <el-table-column prop="templateName" label="模板名称" min-width="200">
                 </el-table-column>
-                <el-table-column label="操作" width="200" align="center">
+                <el-table-column label="操作" width="400" align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        <el-button type="primary" icon="el-icon-s-promotion" circle  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <!-- <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
+                        <el-button type="warning" icon="el-icon-s-promotion" circle  @click="getExcel(scope.$index, scope.row)">导出</el-button>
+                        <el-button type="danger" icon="el-icon-s-promotion" circle @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
         </el-table>
@@ -55,7 +48,7 @@
 </template>
 
 <script>
-import { getTemplatePage } from '@api/data.template.js'
+import { getTemplatePage, getTemplateExcel } from '@api/data.template.js'
 
 export default {
   data () {
@@ -67,8 +60,8 @@ export default {
       },
       loading: true,
       pagination: {
-        currentPage: 1,
-        pageSize: 5,
+        page: 0,
+        size: 11,
         total: 0
       }
     }
@@ -162,6 +155,10 @@ export default {
       this.tableData.splice(this.idx, 1)
       this.$message.success('删除成功')
       this.delVisible = false
+    },
+    getExcel () {
+      console.log('get exel')
+      getTemplateExcel()
     }
   }
 }

@@ -15,22 +15,23 @@
             </el-table-column>
     </el-dialog>-->
     <el-row
-      v-for="(item,index) in list"
-      :key="index"
+
       >
-      <el-col :span="3"  >
-          {{ item }}
-      </el-col>
-       <el-col :span="6" v-if="item">
-          <el-input v-model="form[index].columnName" type="text"  placeholder="请输入参考里程" />
+       <el-col :span="3"
+          v-for="(item,index) in list"
+          :key="index">
+          <el-col :span="24"  v-if="item">
+            <el-input v-model="form[index].columnName" type="text"  placeholder="请输入参考里程" />
+          </el-col>
       </el-col>
     </el-row>
-    <el-row
-      style="margin-top: 30px">
-      <el-col
-        :span="3">
-        <el-button type="primary" @click="editSubmit">确认修改</el-button>
-      </el-col>
+    <el-row>
+        <el-col :span="24" style="text-align: center; margin-top: 15px;">
+            <el-button
+                type="primary"
+                size="custom"
+                @click="editSubmit">确认修改</el-button>
+        </el-col>
     </el-row>
   </d2-container>
 </template>
@@ -53,6 +54,7 @@ export default {
       const { tableName } = this.$route.query
       this.tableName = tableName
       let query = { tableName: tableName }
+      debugger
       getTemplateDetail(query).then(data => {
         data.forEach(element => {
           this.list.push(element.columnName)
@@ -65,8 +67,10 @@ export default {
         tableName: this.tableName,
         templates: this.form
       }
-      editTemplateSubmit(query)
-      this.loadData()
+      editTemplateSubmit(query).then(() => {
+        this.$message.success('修改成功')
+        this.loadData()
+      })
     }
   }
 }

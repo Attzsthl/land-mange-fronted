@@ -78,3 +78,10 @@ export function auditTemplate (params) {
     data: params
   })
 }
+
+export function getTemplateExcel () {
+  return request({
+    url: '/getExcel',
+    method: 'get'
+  })
+}

@@ -36,6 +36,7 @@ import { frameInRoutes } from '@/router/routes'
 import axios from 'axios'
 import './common/directives'
 import util from '@/libs/util.js'
+import globalVariable from '@api/global_varible.js'
 // 核心插件
 Vue.use(d2Admin)
 
@@ -53,6 +54,7 @@ Vue.component('SplitPane', SplitPane)
 Vue.component('VueUeditorWrap', VueUeditorWrap)
 axios.default.baseURL = 'https://localhost:8888'
 Vue.prototype.$axios = axios
+Vue.prototype.global = globalVariable
 
 // router.beforeEach((to, from, next) => {
 //   const roles = localStorage.getItem('roles')

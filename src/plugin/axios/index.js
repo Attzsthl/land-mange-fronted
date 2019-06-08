@@ -2,6 +2,7 @@ import store from '@/store'
 import axios from 'axios'
 import { Message } from 'element-ui'
 import util from '@/libs/util'
+import { getTownId } from '@api/enum.js'
 
 // 创建一个错误
 function errorCreate (msg) {
@@ -46,6 +47,17 @@ service.interceptors.request.use(
     const token = util.cookies.get('token')
     // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
     config.headers['X-Token'] = token
+    if (config.method === 'post') {
+      config.data = {
+        ...config.data,
+        townId: getTownId()
+      }
+    } else if (config.method === 'get') {
+      config.params = {
+        townId: getTownId(),
+        ...config.params
+      }
+    }
     return config
   },
   error => {

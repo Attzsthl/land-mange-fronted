@@ -86,7 +86,7 @@ export default {
   mounted () {
     this.townNames = getTownNames()
     this.indicatorsTypes = getIndicatorsTypes()
-    this.getChartData()
+    // this.getChartData()
   },
   methods: {
     search () {

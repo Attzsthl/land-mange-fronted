@@ -11,6 +11,8 @@ import dataCenter from './modules/dataCenter'
 
 import layoutHeaderAside from '@/layout/header-aside'
 import landMange from './modules/landMange'
+import exitMange from './modules/exit-mange'
+import businessMange from './modules/business-mange'
 
 // 由于懒加载页面太多的话会造成webpack热更新太慢，所以开发环境不使用懒加载，只有生产环境使用懒加载
 const _import = require('@/libs/util.import.' + process.env.NODE_ENV)
@@ -69,7 +71,9 @@ const frameIn = [
   filters,
   business,
   dataCenter,
-  landMange
+  landMange,
+  exitMange,
+  businessMange
 ]
 
 /**

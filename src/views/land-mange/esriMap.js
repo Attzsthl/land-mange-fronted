@@ -42,29 +42,8 @@ export const createMap = function (esriLoader, popupTemplate) {
       FeatureLayer
     ]) => {
       const map = new Map({
-        // basemap: 'topo'
+        basemap: 'topo'
       })
-      // eslint-disable-next-line no-unused-vars
-      layer = new FeatureLayer({
-        url: 'http://47.100.207.237:6080/arcgis/rest/services/mine/szland/MapServer/1',
-        id: 'initlayer',
-        outFields: ['*'],
-        popupTemplate: popupTemplate
-      })
-
-      villageLayer = new FeatureLayer({
-        url: 'http://47.100.207.237:6080/arcgis/rest/services/mine/szland/MapServer/4',
-        id: 'initlayer',
-        visible: false,
-        outFields: ['*'],
-        popupTemplate: popupTemplate
-      })
-
-      // eslint-disable-next-line no-unused-vars
-      const mapImageLayer = new MapImageLayer({
-        url: 'http://47.100.207.237:6080/arcgis/rest/services/mine/szland/MapServer'
-      })
-      // eslint-disable-next-line no-unused-vars
       const mapview = new MapView({
         container: 'viewDiv',
         map: map,
@@ -84,27 +63,6 @@ export const createMap = function (esriLoader, popupTemplate) {
       // map.add(mapImageLayer)
       map.add(villageLayer)
       showFeatureLayer(villageLayer, mapview)
-      mapview.on('click', function (evt) {
-        console.log(evt)
-        mapview.hitTest(evt).then(function (res) {
-          var result = res.results[0]
-          if (result && result.graphic) {
-            var graphic = result.graphic
-            // 自定义高亮
-            // 这里的几何图形是面状，配置graphic的symbol为fillSymbol
-            graphic.symbol = {
-              type: 'simple-fill',
-              color: 'red',
-              outline: {
-                color: [128, 128, 128, 0.5],
-                width: '0.5px'
-              }
-            }
-            mapview.graphics.removeAll()// 清除上一次点击目标
-            mapview.graphics.add(graphic)// 添加新的点击目标
-          }
-        })
-      })
     }, reason => {
       console.log(reason)
     })
