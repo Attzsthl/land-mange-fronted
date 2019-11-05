@@ -33,10 +33,10 @@
                 </el-table-column>
                 <el-table-column label="操作" width="400" align="center">
                     <template slot-scope="scope">
-                        <el-button type="primary" icon="el-icon-s-promotion" circle  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button type="primary" v-if="auth" icon="el-icon-s-promotion" circle  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <!-- <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
                         <el-button type="warning" icon="el-icon-s-promotion" circle  @click="getExcel(scope.$index, scope.row)">导出</el-button>
-                        <el-button type="danger" icon="el-icon-s-promotion" circle @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        <el-button type="danger"  v-if="auth" icon="el-icon-s-promotion" circle @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
         </el-table>
@@ -49,6 +49,7 @@
 
 <script>
 import { getTemplatePage, getTemplateExcel } from '@api/data.template.js'
+import util from '@/libs/util.js'
 
 export default {
   data () {
@@ -63,11 +64,16 @@ export default {
         page: 0,
         size: 11,
         total: 0
-      }
+      },
+      auth: false
     }
   },
   mounted () {
     this.fetchData()
+    const roles = util.cookies.get('roles')
+    if (roles.indexOf('admin') > -1) {
+      this.auth = true
+    }
   },
   methods: {
     clear () {

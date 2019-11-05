@@ -16,7 +16,7 @@
                             v-for="item in townNames"
                             :key="item.id"
                             :label="item.name"
-                            :value="item.id"/>
+                            :value="item.name"/>
                 </el-select>
             </el-form-item>
             <el-form-item
@@ -35,7 +35,7 @@
                 style="float:right">
                 <el-button
                     type="primary"
-                    @click="search">
+                    @click="getChartData">
                     分析
                 </el-button>
             </el-form-item>
@@ -61,14 +61,38 @@ export default {
       chartData: {
         columns: ['year', 'yearendCulArea'],
         rows: [
-          { 'year': '2019', 'yearendCulArea': 1393 },
-          { 'year': '2018', 'yearendCulArea': 3530 },
-          { 'year': '2017', 'yearendCulArea': 2923 },
-          { 'year': '2016', 'yearendCulArea': 1723 },
+          { 'year': '2014', 'yearendCulArea': 4593 },
           { 'year': '2015', 'yearendCulArea': 3792 },
-          { 'year': '2014', 'yearendCulArea': 4593 }
+          { 'year': '2016', 'yearendCulArea': 1723 },
+          { 'year': '2017', 'yearendCulArea': 2923 },
+          { 'year': '2018', 'yearendCulArea': 3530 },
+          { 'year': '2019', 'yearendCulArea': 1393 }
         ]
       },
+      rows1: [
+        { 'year': '2014', 'yearendCulArea': 2421 },
+        { 'year': '2015', 'yearendCulArea': 3131 },
+        { 'year': '2016', 'yearendCulArea': 2134 },
+        { 'year': '2017', 'yearendCulArea': 2134 },
+        { 'year': '2018', 'yearendCulArea': 1314 },
+        { 'year': '2019', 'yearendCulArea': 4311 }
+      ],
+      rows2: [
+        { 'year': '2014', 'yearendCulArea': 231 },
+        { 'year': '2015', 'yearendCulArea': 453 },
+        { 'year': '2016', 'yearendCulArea': 467 },
+        { 'year': '2017', 'yearendCulArea': 213 },
+        { 'year': '2018', 'yearendCulArea': 678 },
+        { 'year': '2019', 'yearendCulArea': 789 }
+      ],
+      rows3: [
+        { 'year': '2014', 'yearendCulArea': 536 },
+        { 'year': '2015', 'yearendCulArea': 131 },
+        { 'year': '2016', 'yearendCulArea': 367 },
+        { 'year': '2017', 'yearendCulArea': 126 },
+        { 'year': '2018', 'yearendCulArea': 652 },
+        { 'year': '2019', 'yearendCulArea': 353 }
+      ],
       form: {
         townId: '',
         indicators: ''
@@ -93,9 +117,19 @@ export default {
 
     },
     getChartData () {
-      getAnalysisData(this.form).then(res => {
-        this.chartData.rows = res
-      })
+      console.log(this.form.indicators)
+      if (this.form.indicators === '') {
+        this.chartData.rows = this.rows1
+      }
+      if (this.form.indicators === '1') {
+        this.chartData.rows = this.rows2
+      }
+      if (this.form.indicators === '2') {
+        this.chartData.rows = this.rows3
+      }
+      // getAnalysisData(this.form).then(res => {
+      //   this.chartData.rows = res
+      // })
     }
 
   }
@@ -109,5 +143,7 @@ export default {
   right:  20px;
   bottom: 20px;
   left: 20px;
+  width: 100%;
+  height: 100%
 }
 </style>

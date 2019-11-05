@@ -6,9 +6,9 @@
         <div  style="position: absolute; left: 280px; top: 20px; width: 200px; height: auto; z-index: 99;padding: 10px;">
          <el-button type="primary" @click="querySearch">搜索</el-button>
         </div>
-        <div  style="position: absolute; right: 280px; top: 20px; width: 200px; height: auto; z-index: 99;padding: 10px;">
+        <!-- <div  style="position: absolute; right: 280px; top: 20px; width: 200px; height: auto; z-index: 99;padding: 10px;">
          <el-button type="primary" @click="showChart">农用地面积统计</el-button>
-        </div>
+        </div> -->
         <div id="viewDiv">
         </div>
         <div id="newmap"></div>
@@ -139,75 +139,77 @@ export default {
           type: 'fields',
           fieldInfos: [{
             fieldName: 'OBJECTID',
-            label: '村名',
+            label: '地块编号',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
             fieldName: 'cstral_no',
-            label: '所在镇',
+            label: '地籍号',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
             fieldName: 'loc_no',
-            label: '年末全村耕地面积',
+            label: '位置编号',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
             fieldName: 'plot_name',
-            label: '高标准农田面积',
+            label: '地块名称',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
             fieldName: 'land_type',
-            label: '设施农业占地面积',
+            label: '土地性质',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
             fieldName: 'land_use',
-            label: '粮食播种面积',
+            label: '土地利用类型',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
             fieldName: 'land_level',
-            label: '蔬菜播种面积',
+            label: '土地等级',
             format: {
               places: 0,
               digitSeparator: true
             }
-          }, {
-            fieldName: 'land_level',
-            label: '水产养殖面积',
-            format: {
-              places: 0,
-              digitSeparator: true
-            }
-          }, {
-            fieldName: 'land_level',
-            label: '村集体经营建设用地面积',
-            format: {
-              places: 0,
-              digitSeparator: true
-            }
-          }, {
-            fieldName: 'land_level',
-            label: '全村宅基地面积',
-            format: {
-              places: 0,
-              digitSeparator: true
-            }
-          }]
+          }
+          // }, {
+          //   fieldName: 'land_level',
+          //   label: '水产养殖面积',
+          //   format: {
+          //     places: 0,
+          //     digitSeparator: true
+          //   }
+          // }, {
+          //   fieldName: 'land_level',
+          //   label: '村集体经营建设用地面积',
+          //   format: {
+          //     places: 0,
+          //     digitSeparator: true
+          //   }
+          // }, {
+          //   fieldName: 'land_level',
+          //   label: '全村宅基地面积',
+          //   format: {
+          //     places: 0,
+          //     digitSeparator: true
+          //   }
+          // }
+          ]
         }]
       },
       townTemplate: {
@@ -223,34 +225,35 @@ export default {
             }
           }, {
             fieldName: 'cstral_no',
-            label: '所在镇',
+            label: '所在村',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
-            fieldName: 'loc_no',
+            fieldName: 'FID',
             label: '年末全村耕地面积',
+            value: '100',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
-            fieldName: 'plot_name',
+            fieldName: 'OBJECTID',
             label: '高标准农田面积',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
-            fieldName: 'land_type',
+            fieldName: 'SHAPE_Leng',
             label: '设施农业占地面积',
             format: {
               places: 0,
               digitSeparator: true
             }
           }, {
-            fieldName: 'land_use',
+            fieldName: 'SHAPE_Area',
             label: '粮食播种面积',
             format: {
               places: 0,

@@ -1,12 +1,41 @@
 <template>
-  <d2-container :filename="filename">
-    <template slot="header">一般</template>
+  <d2-container>
+    <template slot="header"> <el-form
+            :inline="true"
+            :model="form"
+            ref="form"
+            style="margin-bottom: 10px">
+            <el-form-item label="镇名">
+                <el-select v-model="form.townId" placeholder="请选择">
+                    <el-option
+                            v-for="item in townList"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="村名">
+                <el-select v-model="form.village" placeholder="请选择">
+                            <el-option
+                                v-for="item in villageList"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.name">
+                            </el-option>
+                </el-select>
+            </el-form-item>
+            <el-button
+                  type="primary"
+                  style="float:right"
+                  @click="getChartData">
+                  分析
+                </el-button>
+        </el-form></template>
+    <!-- <template slot="header">退出信息分析</template> -->
     <div class="inner">
       <ve-histogram :data="chartData" v-bind="pubSetting"></ve-histogram>
     </div>
-    <template slot="footer">
-      <d2-link-btn title="更多示例和文档" link="https://v-charts.js.org"/>
-    </template>
   </d2-container>
 </template>
 
@@ -19,15 +48,18 @@ export default {
   data () {
     return {
       filename: __filename,
+      form: {
+        townId: '',
+        indicators: ''
+      },
       chartData: {
-        columns: ['日期', '访问用户', '下单用户', '下单率'],
+        columns: ['退出村', '退出面积', '退出户数', '赔偿金额'],
         rows: [
-          { '日期': '1/1', '访问用户': 1393, '下单用户': 1093, '下单率': 0.32 },
-          { '日期': '1/2', '访问用户': 3530, '下单用户': 3230, '下单率': 0.26 },
-          { '日期': '1/3', '访问用户': 2923, '下单用户': 2623, '下单率': 0.76 },
-          { '日期': '1/4', '访问用户': 1723, '下单用户': 1423, '下单率': 0.49 },
-          { '日期': '1/5', '访问用户': 3792, '下单用户': 3492, '下单率': 0.323 },
-          { '日期': '1/6', '访问用户': 4593, '下单用户': 4293, '下单率': 0.78 }
+          { '退出村': '石湖村', '退出面积': 110, '退出户数': 42, '赔偿金额': 10 },
+          { '退出村': '保卫村', '退出面积': 120, '退出户数': 48, '赔偿金额': 12 },
+          { '退出村': '下山村', '退出面积': 122, '退出户数': 49, '赔偿金额': 15 },
+          { '退出村': '吴工村', '退出面积': 146, '退出户数': 53, '赔偿金额': 16 },
+          { '退出村': '青灯村', '退出面积': 189, '退出户数': 58, '赔偿金额': 19 }
         ]
       }
     }
@@ -42,5 +74,7 @@ export default {
   right:  20px;
   bottom: 20px;
   left: 20px;
+  width: 100%;
+  height:100%
 }
 </style>

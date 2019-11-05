@@ -21,6 +21,8 @@ export default {
     { path: 'audit-step4', name: `${pre}audit-step4`, component: _import('exit-mange/audit/exit-audit-step4'), meta: { ...meta, title: '地面附着物赔偿计算' } },
     { path: 'audit-step5', name: `${pre}audit-step5`, component: _import('exit-mange/audit/exit-audit-step5'), meta: { ...meta, title: '失地拆迁登记' } },
     { path: 'audit-step6', name: `${pre}audit-step6`, component: _import('exit-mange/audit/exit-audit-step6'), meta: { ...meta, title: '审核意见' } },
-    { path: 'final-approve', name: `${pre}final-approve`, component: _import('exit-mange/audit/exit-final-approve'), meta: { ...meta, title: '最终审批' } }
+    { path: 'final-approve', name: `${pre}final-approve`, component: _import('exit-mange/audit/exit-final-approve'), meta: { ...meta, title: '最终审批' } },
+    { path: 'data', name: `${pre}data`, component: _import('demo/d2-crud/demo29'), meta: { ...meta, title: '退出信息汇总' } },
+    { path: 'chart', name: `${pre}chart`, component: _import('demo/charts/list/histogram/demo1'), meta: { ...meta, title: '退出信息分析' } }
   ])('exit-mange-')
 }

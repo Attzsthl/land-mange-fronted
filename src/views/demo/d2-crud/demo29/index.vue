@@ -1,6 +1,6 @@
 <template>
   <d2-container :filename="filename">
-    <template slot="header">分页</template>
+    <template slot="header">退出信息汇总</template>
     <d2-crud
       :columns="columns"
       :data="data"
@@ -8,7 +8,7 @@
       :rowHandle="rowHandle"
       :pagination="pagination"
       @pagination-current-change="paginationCurrentChange"/>
-    <el-card shadow="never" class="d2-mb">
+    <!-- <el-card shadow="never" class="d2-mb">
       <d2-markdown :source="doc"/>
     </el-card>
     <el-card shadow="never" class="d2-mb">
@@ -16,7 +16,7 @@
     </el-card>
     <template slot="footer">
       <d2-link-btn title="文档" link="https://doc.d2admin.fairyever.com/zh/ecosystem-d2-crud/"/>
-    </template>
+    </template> -->
   </d2-container>
 </template>
 
@@ -34,21 +34,37 @@ export default {
       code,
       columns: [
         {
-          title: '卡密',
+          title: '年份',
           key: 'id',
           width: 320
         },
         {
-          title: '面值',
+          title: '村',
           key: 'proCode'
         },
         {
-          title: '管理员',
+          title: '镇',
           key: 'proName'
         },
         {
-          title: '创建时间',
+          title: '面积退地户数',
           key: 'applyDate'
+        },
+        {
+          title: '退地户数',
+          key: 'exitNum'
+        },
+        {
+          title: '资金赔偿总额',
+          key: 'compensate'
+        },
+        {
+          title: '股份变更户数',
+          key: 'stockNum'
+        },
+        {
+          title: '社保变更人数',
+          key: 'socialNum'
         }
         // ,
         // {
@@ -56,27 +72,78 @@ export default {
         //   key: 'dateTimeUse'
         // }
       ],
-      data: [],
+      data: [
+        {
+          id: '2018',
+          proCode: '石湖村',
+          proName: '横塘镇',
+          applyDate: '110',
+          exitNum: '42',
+          compensate: '100000',
+          stockNum: '32',
+          socialNum: '126'
+        },
+        {
+          id: '2018',
+          proCode: '保卫村',
+          proName: '横塘镇',
+          applyDate: '120',
+          exitNum: '48',
+          compensate: '123536',
+          stockNum: '48',
+          socialNum: '144'
+        },
+        {
+          id: '2018',
+          proCode: '下山村',
+          proName: '横塘镇',
+          applyDate: '122',
+          exitNum: '49',
+          compensate: '157457',
+          stockNum: '56',
+          socialNum: '156'
+        },
+        {
+          id: '2018',
+          proCode: '吴工村',
+          proName: '横塘镇',
+          applyDate: '146',
+          exitNum: '53',
+          compensate: '162324',
+          stockNum: '68',
+          socialNum: '168'
+        },
+        {
+          id: '2018',
+          proCode: '青灯村',
+          proName: '横塘镇',
+          applyDate: '189',
+          exitNum: '58',
+          compensate: '189342',
+          stockNum: '48',
+          socialNum: '148'
+        }
+      ],
       loading: false,
       pagination: {
         currentPage: 1,
         pageSize: 5,
         total: 0
-      },
-      rowHandle: {
-        custom: [
-          {
-            text: '自定义按钮',
-            type: 'warning',
-            size: 'small',
-            emit: 'custom-emit-1'
-          }
-        ]
       }
+      // rowHandle: {
+      //   custom: [
+      //     {
+      //       text: '自定义按钮',
+      //       type: 'warning',
+      //       size: 'small',
+      //       emit: 'custom-emit-1'
+      //     }
+      //   ]
+      // }
     }
   },
   mounted () {
-    this.fetchData()
+    // this.fetchData()
   },
   methods: {
     paginationCurrentChange (currentPage) {

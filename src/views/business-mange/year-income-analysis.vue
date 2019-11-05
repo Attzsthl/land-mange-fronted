@@ -39,7 +39,7 @@
             <el-button
                   type="primary"
                   style="float:right"
-                  @click="search">
+                  @click="getChartData">
                   查询
                 </el-button>
         </el-form>
@@ -182,5 +182,7 @@ export default {
   right:  20px;
   bottom: 20px;
   left: 20px;
+  width: 100%;
+  height: 100%;
 }
 </style>

@@ -6,7 +6,7 @@
             ref="form"
             style="margin-bottom: 10px">
             <el-form-item label="镇名">
-                <el-select v-model="form.town" placeholder="请选择">
+                <el-select v-model="form.townId" placeholder="请选择">
                     <el-option
                             v-for="item in townList"
                             :key="item.id"
@@ -28,16 +28,16 @@
             <el-button
                   type="primary"
                   style="float:right"
-                  @click="search">
+                  @click="getChartData">
                   分析
                 </el-button>
         </el-form></template>
-        <div class="container" style="display:flex">
-            <div class="inner">
-                <ve-line :data="chartDataCollective" :settings="chartSettingsCollective" height="700px"  width="700px"></ve-line>
+        <div  style="display:flex;width: 100%;height: 800px;">
+            <div style="margin-left:10px">
+                <ve-line :data="chartDataCollective" :settings="chartSettingsCollective" height="700px"  width="800px"></ve-line>
             </div>
-            <div class="inner right">
-                <ve-line :data="chartDataFarmer" :settings="chartSettingsFamer" height="700px" width="700px"></ve-line>
+            <div style="margin-right:10px">
+                <ve-line :data="chartDataFarmer" :settings="chartSettingsFamer" height="700px" width="800px"></ve-line>
             </div>
         </div>
     </d2-container>
@@ -114,27 +114,55 @@ export default {
 
 }
 </script>
-<style lang="scss">
+<style>
 .container {
     width: 100%;
     height: 800px;
-    .inner {
+    /* .inner {
         border:1px solid  #000;
         margin-right: 10px;
         flex-grow: 1;
-
+        // width: 100%;
+        // height: 100%;
         &.right {
             flex-grow: 1;
         }
-    }
+    } */
 }
 
 .line {
   position: absolute;
+  /* // margin-left: 100px; */
   top: 20px;
   right:  20px;
   bottom: 20px;
   left: 20px;
 }
+</style>
+
+<style lang="scss">
+// .container {
+//     width: 100%;
+//     height: 800px;
+//     .inner {
+//         border:1px solid  #000;
+//         margin-right: 10px;
+//         flex-grow: 1;
+//         // width: 100%;
+//         // height: 100%;
+//         &.right {
+//             flex-grow: 1;
+//         }
+//     }
+// }
+
+// .line {
+//   position: absolute;
+//   // margin-left: 100px;
+//   top: 20px;
+//   right:  20px;
+//   bottom: 20px;
+//   left: 20px;
+// }
 
 </style>

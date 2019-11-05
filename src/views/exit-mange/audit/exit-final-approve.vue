@@ -1,8 +1,8 @@
 <template>
     <d2-container>
         <template slot="header">最终审批</template>
-        <div class="container" style="display:flex">
-            <div class="inner left">
+        <div  style="display:flex; width: 100%; height: 500px;">
+            <div style="margin-left:10px;width:50%">
                 <el-row :gutter="180">
                     <el-col :span="24" style="text-align: center; margin-top: 15px">
                         <el-button type="text" size="medium" @click="toApplyInfo">查看申请人基本信息</el-button>
@@ -29,7 +29,7 @@
                     </el-col>
                 </el-row>
             </div>
-            <div class="inner right">
+            <div style="margin-right:10px;width:50%">
                 <el-form
                     ref="newForm"
                     :model="form"

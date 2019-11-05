@@ -58,7 +58,7 @@
           <el-col :span="24" style="text-align: center; margin-top: 15px;">
                <el-button
                         v-hasAuthorization
-                        v-if="isAudit"
+                        v-if="isAudit && status != 4"
                         type="primary"
                         size="custom"
                         @click="sendSuccess">审核通过</el-button>
